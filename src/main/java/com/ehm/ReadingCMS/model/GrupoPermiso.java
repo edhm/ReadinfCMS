@@ -1,4 +1,4 @@
-package com.ehm.ReadingCMS.model;
+package com.ehm.ReadingCMS.Model;
 
 public class GrupoPermiso {
 	private long IdGrupo;
