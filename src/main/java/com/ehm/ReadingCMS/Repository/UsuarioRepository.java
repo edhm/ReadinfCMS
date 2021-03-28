@@ -18,9 +18,9 @@ public class UsuarioRepository implements UsuarioRep {
 	public boolean save(Usuario usuario) {
 		try {
 			String sql = String.format(
-					"INSERT INTO usuario(IdUsuario, Nombre, Apellido, Contrasena, Correo, IdGrupo) VALUES('%d','%s','%s','%s','%s','%d') ",
-					usuario.getIdUsuario(), usuario.getNombre(), usuario.getApellido(), usuario.getContrasena(),
-					usuario.getCorreo(), usuario.getIdGrupo());
+					"INSERT INTO usuario( Nombre, Apellido, Contrasena, Correo, IdGrupo) VALUES('%d','%s','%s','%s','%s','%d') ",
+					usuario.getNombre(), usuario.getApellido(), usuario.getContrasena(), usuario.getCorreo(),
+					usuario.getIdGrupo());
 			jdbcTemplate.execute(sql);
 		} catch (Exception e) {
 			return true;
@@ -30,12 +30,12 @@ public class UsuarioRepository implements UsuarioRep {
 
 	@Override
 	public boolean update(Usuario usuario) {
-		if (usuario.getIdUsuario() != 0) {
+		if (usuario.getIdUsuario() > 0) {
 			String sql = String.format(
-					"UPDATE usuario SET IdUsuario='%d', Nombre='%s', Apellido='%s', Contrasena='%s', Correo='%s', IdGrupo='%d'"
+					"UPDATE usuario SET  Nombre='%s', Apellido='%s', Contrasena='%s', Correo='%s', IdGrupo='%d'"
 							+ "WHERE IdUsuario()='%d'",
-					usuario.getIdUsuario(), usuario.getNombre(), usuario.getApellido(), usuario.getContrasena(),
-					usuario.getCorreo(), usuario.getIdGrupo());
+					usuario.getNombre(), usuario.getApellido(), usuario.getContrasena(), usuario.getCorreo(),
+					usuario.getIdGrupo());
 			jdbcTemplate.execute(sql);
 			return true;
 		}

@@ -18,7 +18,8 @@ public class ComentarioRepository implements ComentarioRep {
 	public boolean save(Comentario comentario) {
 		try {
 			String sql = String.format(
-					"INSERT INTO comentario(Comentario, IdPost, IdUsuario, Respuesta)" + "values('%s', '%s', '%d')",
+					"INSERT INTO comentario(Comentario, IdPost, IdUsuario, Respuesta)"
+							+ "values('%s', '%d', '%d', '%s')",
 					comentario.getComentario(), comentario.getIdpost(), comentario.getIdUsuario(),
 					comentario.getRespuesta());
 			jdbcTemplate.execute(sql);
@@ -32,10 +33,10 @@ public class ComentarioRepository implements ComentarioRep {
 
 	@Override
 	public boolean update(Comentario comentario) {
-		if (comentario.getIdCOmentario() != 0) {
+		if (comentario.getIdCOmentario() > 0) {
 			String sql = String.format(
-					"update Comentario set Comentario='%s', IdPost='%s', IdUsuario='%d', Respuesta='%s'"
-							+ "where IdCategoria='%d'",
+					"update Comentario set Comentario='%s', IdPost='%d', IdUsuario='%d', Respuesta='%s'"
+							+ "where IdCOmentario='%d'",
 					comentario.getComentario(), comentario.getIdpost(), comentario.getIdUsuario(),
 					comentario.getRespuesta());
 

@@ -30,7 +30,7 @@ public class CategoriaRepository implements CategoriaRep {
 
 	@Override
 	public boolean update(Categoria categoria) {
-		if (categoria.getIdCategoria() != 0) {
+		if (categoria.getIdCategoria() > 0) {
 			String sql = String.format(
 					"update Categoria set Nombre='%s', Descripcion='%s', CategoriaSuperior='%d'"
 							+ "where IdCategoria='%d'",

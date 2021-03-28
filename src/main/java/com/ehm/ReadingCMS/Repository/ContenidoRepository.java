@@ -17,9 +17,8 @@ public class ContenidoRepository implements ContenidoRep {
 	@Override
 	public boolean save(Contenido contenido) {
 		try {
-			String sql = String.format(
-					"INSERT INTO contenido(IdContenido,Tipo, Contenido,Idpost) " + " values('%d','%s','%s','%d')",
-					contenido.getIdContenido(), contenido.getTipo(), contenido.getContenido(), contenido.getIdPost());
+			String sql = String.format("INSERT INTO contenido(Tipo, Contenido,Idpost) " + " values('%s','%s','%d')",
+					contenido.getTipo(), contenido.getContenido(), contenido.getIdPost());
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -29,12 +28,9 @@ public class ContenidoRepository implements ContenidoRep {
 
 	@Override
 	public boolean update(Contenido contenido) {
-		if (contenido.getIdContenido() != 0) {
-			String sql = String.format(
-					"UPDATE Contenido set IdContenido='%d',Contenido='%s',IdContenido='%d',IdPost='%d' "
-							+ "WHERE IdContenido='%d'",
-					contenido.getIdContenido(), contenido.getContenido(), contenido.getIdContenido(),
-					contenido.getIdPost());
+		if (contenido.getIdContenido() > 0) {
+			String sql = String.format("UPDATE Contenido set Tipo='%s',Contenido='%s'" + "WHERE IdContenido='%d'",
+					contenido.getTipo(), contenido.getContenido(), contenido.getIdContenido());
 			jdbcTemplate.execute(sql);
 			return true;
 		}

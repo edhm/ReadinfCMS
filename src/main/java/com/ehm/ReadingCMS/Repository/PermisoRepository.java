@@ -17,8 +17,7 @@ public class PermisoRepository implements PermisoRep {
 	@Override
 	public boolean save(Permiso permiso) {
 		try {
-			String sql = String.format("INSERT INTO permiso(IdPermiso, Nombre) VALUES('%d','%s')",
-					permiso.getIdPermiso(), permiso.getNombre());
+			String sql = String.format("INSERT INTO permiso( Nombre) VALUES('%s')", permiso.getNombre());
 			jdbcTemplate.execute(sql);
 		} catch (Exception e) {
 			return true;
@@ -28,9 +27,8 @@ public class PermisoRepository implements PermisoRep {
 
 	@Override
 	public boolean update(Permiso permiso) {
-		if (permiso.getIdPermiso() != 0) {
-			String sql = String.format("UPDATE permiso set IdPermiso='%d', Nombre='%s'" + "WHERE IdPermiso='%d'",
-					permiso.getIdPermiso(), permiso.getNombre());
+		if (permiso.getIdPermiso() > 0) {
+			String sql = String.format("UPDATE permiso set  Nombre='%s'" + "WHERE IdPermiso='%d'", permiso.getNombre());
 			jdbcTemplate.execute(sql);
 			return true;
 		}

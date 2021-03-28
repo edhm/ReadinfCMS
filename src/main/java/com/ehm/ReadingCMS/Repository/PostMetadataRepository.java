@@ -18,9 +18,8 @@ public class PostMetadataRepository implements PostMetadataRep {
 	public boolean save(PostMetadata postMetadata) {
 		try {
 			String sql = String.format(
-					"INSERT INTO post_metadata (IdPostMetadata,Clave,Valor,Tipo,IdPost) VALUES('%d','%s','%s','%s','%d')",
-					postMetadata.getIdPostMetadata(), postMetadata.getClave(), postMetadata.getValor(),
-					postMetadata.getTipo(), postMetadata.getIsPost());
+					"INSERT INTO post_metadata (Clave,Valor,Tipo,IdPost) VALUES('%s','%s','%s','%d')",
+					postMetadata.getClave(), postMetadata.getValor(), postMetadata.getTipo(), postMetadata.getIsPost());
 			jdbcTemplate.execute(sql);
 		} catch (Exception e) {
 			return true;
@@ -30,12 +29,11 @@ public class PostMetadataRepository implements PostMetadataRep {
 
 	@Override
 	public boolean update(PostMetadata postMetadata) {
-		if (postMetadata.getIdPostMetadata() != 0) {
+		if (postMetadata.getIdPostMetadata() > 0) {
 			String sql = String.format(
-					"UPDATE post_metadata set IdPostMetadata='%d',Clave ='%s',Valor='%s',Tipo='%s',IdPost='%d'"
+					"UPDATE post_metadata set Clave ='%s',Valor='%s',Tipo='%s',IdPost='%d'"
 							+ "WHERE IdPostMetadata='%d'",
-					postMetadata.getIdPostMetadata(), postMetadata.getClave(), postMetadata.getValor(),
-					postMetadata.getTipo(), postMetadata.getIdPostMetadata());
+					postMetadata.getClave(), postMetadata.getValor(), postMetadata.getTipo(), postMetadata.getIsPost());
 			jdbcTemplate.execute(sql);
 			return true;
 		}

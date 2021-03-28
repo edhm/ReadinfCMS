@@ -18,9 +18,9 @@ public class UsuarioMetadataRepository implements UsuarioMetadataRep {
 	public boolean save(UsuarioMetadata usuarioMetadata) {
 		try {
 			String sql = String.format(
-					"INSERT INTO usuario_metadata (IdUsuarioMetadata,Idusuario, Clave,Valor,Tipo) VALUES('%d','%d','%s','%s','%d')",
-					usuarioMetadata.getIdUsuarioMetadata(), usuarioMetadata.getIdUsuario(), usuarioMetadata.getClave(),
-					usuarioMetadata.getValor(), usuarioMetadata.getTipo());
+					"INSERT INTO usuario_metadata (Idusuario, Clave,Valor,Tipo) VALUES('%d','%d','%s','%s','%d')",
+					usuarioMetadata.getIdUsuario(), usuarioMetadata.getClave(), usuarioMetadata.getValor(),
+					usuarioMetadata.getTipo());
 			jdbcTemplate.execute(sql);
 		} catch (Exception e) {
 
@@ -31,12 +31,12 @@ public class UsuarioMetadataRepository implements UsuarioMetadataRep {
 
 	@Override
 	public boolean update(UsuarioMetadata usuarioMetadata) {
-		if (usuarioMetadata.getIdUsuarioMetadata() != 0) {
+		if (usuarioMetadata.getIdUsuarioMetadata() > 0) {
 			String sql = String.format(
-					"UPDATE usuario_metadata SET IdUsuarioMetadata='%d',Idusuario='%d', Clave='%s',Valor='%s',Tipo='%s'"
+					"UPDATE usuario_metadata SET Idusuario='%d', Clave='%s',Valor='%s',Tipo='%s'"
 							+ "WHERE IdUsuarioMetadata='%d'",
-					usuarioMetadata.getIdUsuarioMetadata(), usuarioMetadata.getIdUsuario(), usuarioMetadata.getClave(),
-					usuarioMetadata.getValor(), usuarioMetadata.getTipo());
+					usuarioMetadata.getIdUsuario(), usuarioMetadata.getClave(), usuarioMetadata.getValor(),
+					usuarioMetadata.getTipo());
 			jdbcTemplate.execute(sql);
 			return true;
 		}
