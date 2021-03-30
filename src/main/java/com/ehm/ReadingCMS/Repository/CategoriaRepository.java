@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.ehm.ReadingCMS.Model.Categoria;
 
+import Mapper.CategoriaMapper;
+
 @Repository
 public class CategoriaRepository implements CategoriaRep {
 	@Autowired
@@ -44,12 +46,15 @@ public class CategoriaRepository implements CategoriaRep {
 
 	@Override
 	public List<Categoria> findAll(Pageable pageable) {
-		return null;
+
+		return jdbcTemplate.query("SELECT * FROM Categoria", new CategoriaMapper());
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public Categoria finById(int Id) {
-		// TODO Auto-generated method stub
-		return null;
+		Object[] params = new Object[] { Id };
+		return jdbcTemplate.queryForObject("SELECT * FROM Categoria WHERE IdCategoria= ?", params,
+				new CategoriaMapper());
 	}
 }
