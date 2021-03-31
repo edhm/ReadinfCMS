@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import com.ehm.ReadingCMS.Model.Comentario;
 
+import Mapper.CategoriaMapper;
+import Mapper.ComentarioMapper;
+
 @Repository
 public class ComentarioRepository implements ComentarioRep {
 	@Autowired
@@ -48,13 +51,15 @@ public class ComentarioRepository implements ComentarioRep {
 
 	@Override
 	public List<Comentario> findAll(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
+
+		return jdbcTemplate.query("SELECT * FROM Comentario", new ComentarioMapper());
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public Comentario finById(int Id) {
-		// TODO Auto-generated method stub
-		return null;
+		Object[] params = new Object[] { Id };
+		return jdbcTemplate.queryForObject("SELECT * FROM Comentario WHERE IdComentario= ?", params,
+				new ComentarioMapper());
 	}
 }

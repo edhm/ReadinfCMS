@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.ehm.ReadingCMS.Model.PostMetadata;
 
+import Mapper.postMetadataMapper;
+
 @Repository
 public class PostMetadataRepository implements PostMetadataRep {
 	@Autowired
@@ -42,13 +44,15 @@ public class PostMetadataRepository implements PostMetadataRep {
 
 	@Override
 	public List<PostMetadata> findAll(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
+
+		return jdbcTemplate.query("SELECT * FROM post_metadata", new postMetadataMapper());
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public PostMetadata finById(int Id) {
-		// TODO Auto-generated method stub
-		return null;
+		Object[] params = new Object[] { Id };
+		return jdbcTemplate.queryForObject("SELECT * FROM  post_metadata WHERE IdPostMetadata=?", params,
+				new postMetadataMapper());
 	}
 }

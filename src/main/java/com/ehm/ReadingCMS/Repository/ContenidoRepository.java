@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import com.ehm.ReadingCMS.Model.Contenido;
 
+import Mapper.ComentarioMapper;
+import Mapper.ContenidoMapper;
+
 @Repository
 public class ContenidoRepository implements ContenidoRep {
 	@Autowired
@@ -39,14 +42,17 @@ public class ContenidoRepository implements ContenidoRep {
 
 	@Override
 	public List<Contenido> findAll(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
+
+		return jdbcTemplate.query("SELECT * FROM Contenido", new ContenidoMapper());
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public Contenido finById(int Id) {
-		// TODO Auto-generated method stub
-		return null;
+		Object[] params = new Object[] { Id };
+		return jdbcTemplate.queryForObject("SELECT * FROM Contenido WHERE IdContenido= ?", params,
+				new ContenidoMapper());
+
 	}
 
 }

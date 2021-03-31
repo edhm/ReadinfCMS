@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.ehm.ReadingCMS.Model.UsuarioMetadata;
 
+import Mapper.UsuarioMetadataMapper;
+
 @Repository
 public class UsuarioMetadataRepository implements UsuarioMetadataRep {
 	@Autowired
@@ -45,13 +47,14 @@ public class UsuarioMetadataRepository implements UsuarioMetadataRep {
 
 	@Override
 	public List<UsuarioMetadata> findAll(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
+		return jdbcTemplate.query("SELECT * FROM usuario_metadata", new UsuarioMetadataMapper());
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public UsuarioMetadata finById(int Id) {
-		// TODO Auto-generated method stub
-		return null;
+		Object[] params = new Object[] { Id };
+		return jdbcTemplate.queryForObject("SELECT * FROM usuario_metadata WHERE IdUsuarioMetadata=?", params,
+				new UsuarioMetadataMapper());
 	}
 }

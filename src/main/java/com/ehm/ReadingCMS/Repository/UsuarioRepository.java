@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.ehm.ReadingCMS.Model.Usuario;
 
+import Mapper.UsuarioMapper;
+
 @Repository
 public class UsuarioRepository implements UsuarioRep {
 	@Autowired
@@ -33,7 +35,7 @@ public class UsuarioRepository implements UsuarioRep {
 		if (usuario.getIdUsuario() > 0) {
 			String sql = String.format(
 					"UPDATE usuario SET  Nombre='%s', Apellido='%s', Contrasena='%s', Correo='%s', IdGrupo='%d'"
-							+ "WHERE IdUsuario()='%d'",
+							+ "WHERE IdUsuario='%d'",
 					usuario.getNombre(), usuario.getApellido(), usuario.getContrasena(), usuario.getCorreo(),
 					usuario.getIdGrupo());
 			jdbcTemplate.execute(sql);
@@ -44,13 +46,13 @@ public class UsuarioRepository implements UsuarioRep {
 
 	@Override
 	public List<Usuario> findAll(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
+		return jdbcTemplate.query("SELECT * FROM usuario ", new UsuarioMapper());
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public Usuario finById(int Id) {
-		// TODO Auto-generated method stub
-		return null;
+		Object[] params = new Object[] { Id };
+		return jdbcTemplate.queryForObject("SELECT * FROM usuario WHERE IdUsuario=?", params, new UsuarioMapper());
 	}
 }

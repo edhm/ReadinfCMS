@@ -14,10 +14,12 @@ public class ComentarioMapper implements RowMapper<Comentario> {
 
 		Comentario comentario = new Comentario();
 		comentario.setComentario(rs.getString("Comentario"));
+		comentario.setIdCOmentario(rs.getInt("IdComentario"));
 		comentario.setFecha(rs.getDate("Fecha"));
 		comentario.setIdpost(rs.getInt("Idpost"));
 		comentario.setIdUsuario(rs.getInt("IdUsuario"));
 		comentario.setRespuesta(rs.getString("Respuesta"));
+
 		return null;
 	}
 

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.ehm.ReadingCMS.Model.Post;
 
+import Mapper.PostMapper;
+
 @Repository
 public class PostRepository implements PostRep {
 	@Autowired
@@ -33,7 +35,7 @@ public class PostRepository implements PostRep {
 		if (post.getIdPost() > 0) {
 			String sql = String.format(
 					"UPDATE post SET Titulo='%s', Slug='%s',Extracto='%s',IdUsuario'%d',Categoria='%s',ImagenDestacada='%s', Tipo='%s'"
-							+ "WHERE getIdPost()='%d'",
+							+ "WHERE IdPost='%d'",
 					post.getTitulo(), post.getSlug(), post.getExtracto(), post.getIdUsuario(), post.getCategoria(),
 					post.getImagenDestacada(), post.getTipo());
 			jdbcTemplate.execute(sql);
@@ -44,13 +46,13 @@ public class PostRepository implements PostRep {
 
 	@Override
 	public List<Post> findAll(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
+		return jdbcTemplate.query("SELECT * FROM post", new PostMapper());
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public Post finById(int Id) {
-		// TODO Auto-generated method stub
-		return null;
+		Object[] params = new Object[] { Id };
+		return jdbcTemplate.queryForObject("SELECT * FROM post WHERE IdPost=?", params, new PostMapper());
 	}
 }

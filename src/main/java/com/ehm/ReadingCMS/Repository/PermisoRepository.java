@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.ehm.ReadingCMS.Model.Permiso;
 
+import Mapper.PermisoMapper;
+
 @Repository
 public class PermisoRepository implements PermisoRep {
 	@Autowired
@@ -37,13 +39,13 @@ public class PermisoRepository implements PermisoRep {
 
 	@Override
 	public List<Permiso> findAll(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
+		return jdbcTemplate.query("SELECT * FROM permiso", new PermisoMapper());
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public Permiso finById(int Id) {
-		// TODO Auto-generated method stub
-		return null;
+		Object[] params = new Object[] { Id };
+		return jdbcTemplate.queryForObject("SELECt * FROM permiso WHERE IdPermiso=?", params, new PermisoMapper());
 	}
 }
